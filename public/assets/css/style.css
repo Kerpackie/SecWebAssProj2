@@ -1,0 +1,13 @@
+body {
+	text-align: center;
+	background-color: Khaki;
+	margin: 40px;
+	font: 13px/20px normal Helvetica, Arial, sans-serif;
+	color: #4F5155;
+}
+#footer{
+	font-size:smaller;
+}
+.center-text {
+	text-align:center;
+}
