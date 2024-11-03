@@ -11,5 +11,11 @@ class Author_Model extends Model {
 	public function getAllAuthors() {
 		return $this->findAll();
 	}
+	
+	public function delAuthor($id) {
+		$builder = $this->builder();
+		$builder->delete(['authorID' => $id]);
+		return $builder;
+	}	
 }
 ?>

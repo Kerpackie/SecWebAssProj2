@@ -19,8 +19,27 @@ class Home extends BaseController {
 			. view ('templates/footer');
 	}
 
+	public function deleteAuthor($id) {
+		$msg = "";
+   		$model = new Author_Model;
+
+		//check if delete from database is successful – display appropriate message
+		if ($model->delAuthor($id)) {
+			$msg .= "<br><br>The delete from the database has been successful<br><br>";
+		}
+		else {
+			$msg .= "<br><br>Uh oh ... problem on delete from the database<br><br>";
+		}
+				
+		//load the view to display the message
+		$data['message'] = $msg;
+		return view('templates/header')
+			 . view('displayMessageView', $data)
+			 . view('templates/footer');
+	}
+
+
 	public function insert(){
-		
 		$data = []; $msg = "";
 		
 		//load CI form helper
