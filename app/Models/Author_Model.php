@@ -23,5 +23,12 @@ class Author_Model extends Model {
            		->where(['authorID' => $id])
            		->first();
    	}
+
+   	public function updAuthor($newData, $id) {
+		$builder = $this->builder();
+   		$builder->where('authorID', $id);
+		$builder->update($newData);
+   		return $builder;
+   	}
 }
 ?>

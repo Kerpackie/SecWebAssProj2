@@ -19,7 +19,8 @@
 			<td><?php echo $row['lastName'];?></td>
 			<td><?php echo $row['yearBorn'];?></td>
 			<td><img src="<?php echo base_url(); ?>/assets/images/thumbs/<?= $row['image'] ?>"/>
-			<td><a href="<?php echo base_url('drilldownAuthor/'.$row['authorID']); ?>"> View </a></td>			
+			<td><a href="<?php echo base_url('drilldownAuthor/'.$row['authorID']); ?>"> View </a></td>
+			<td><a href="<?php echo base_url('updateAuthor/'.$row['authorID']); ?>"> Update </a></td>			
             <td><a href="<?php echo base_url('deleteAuthor/'.$row['authorID']); ?>" 
 				onclick="return checkDelete();">Delete </a></td>
 		</tr>     
