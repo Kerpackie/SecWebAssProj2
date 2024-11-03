@@ -26,3 +26,7 @@
 		</tr>     
 	<?php }?>  
 </table>
+<div>
+	<?php if ($pager)
+		echo $pager->links(); ?>
+</div>

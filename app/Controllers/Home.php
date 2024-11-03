@@ -22,7 +22,11 @@ class Home extends BaseController {
 
 	public function listAuthors() {
 		$model = new Author_Model;
-        $authorData['author'] = $model->getAllAuthors();
+
+        //$authorData['author'] = $model->getAllAuthors();
+		$authorData = [ 'author' => $model->paginate(3),
+						'pager'  => $model->pager ];
+
         return view ('templates/header', $authorData)
 			. view('authorsList')
 			. view ('templates/footer');
