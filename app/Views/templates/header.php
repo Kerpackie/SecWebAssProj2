@@ -14,4 +14,5 @@
 		<a href="<?php echo base_url(); ?>" >Home</a>
 		<a href="<?php echo base_url(); ?>insert" >Insert</a>
 		<a href="<?php echo base_url(); ?>listAuthors" >List</a>
+				<a href="<?php echo base_url(); ?>listPublishers" >List Publishers</a>
 	</header>

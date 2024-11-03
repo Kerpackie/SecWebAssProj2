@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\Author_Model;
+use App\Models\Publisher_Model;
 
 class Home extends BaseController {
 	
@@ -29,6 +30,25 @@ class Home extends BaseController {
 
         return view ('templates/header', $authorData)
 			. view('authorsList')
+			. view ('templates/footer');
+	}
+
+   	public function drilldownPublisher($id) {
+   		$model = new Publisher_Model();
+   		$publisherData['publisher'] = $model->getPublisherByID($id);
+
+   		return view ('templates/header', $publisherData)
+			. view ('drilldownPublisher')
+			. view ('templates/footer');
+    }
+
+	public function listPublishers() {
+		$model = new Publisher_Model();
+
+        $publisherData['publisher'] = $model->getAllPublishers();
+
+        return view ('templates/header', $publisherData)
+			. view('publishersList')
 			. view ('templates/footer');
 	}
 
