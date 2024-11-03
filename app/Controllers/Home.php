@@ -11,8 +11,15 @@ class Home extends BaseController {
 			 . view('templates/footer');
 	}
 
-	public function insert() {
+	public function listAuthors() {
+		$model = new Author_Model;
+        $authorData['author'] = $model->getAllAuthors();
+        return view ('templates/header', $authorData)
+			. view('authorsList')
+			. view ('templates/footer');
+	}
 
+	public function insert() {
 		$data = []; $msg = "";
 		//load CI form helper
 		helper(['form']);

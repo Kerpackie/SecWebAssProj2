@@ -4,6 +4,8 @@ $img_base = base_url()."/assets/images/";
 
 <div class="center-text">
 	<h1> Home </h1>
-	<h2> Please select an option from below </h2>
-	<a href="<?php echo base_url(); ?>insert" >Insert into Database</a>		
+	<br><br><br><br>
+	<h2>Books Database</h2>
+	<p>Information about our Authors</a>
+	<br><br><br><br>
 </div>

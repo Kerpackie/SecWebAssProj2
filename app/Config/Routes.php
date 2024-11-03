@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], 'insert', 'Home::insert');
+$routes->get('listAuthors', 'Home::listAuthors');
