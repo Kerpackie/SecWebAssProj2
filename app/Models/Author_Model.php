@@ -17,5 +17,11 @@ class Author_Model extends Model {
 		$builder->delete(['authorID' => $id]);
 		return $builder;
 	}	
+
+	public function getAuthorByID($id) {
+   		return $this->asArray()
+           		->where(['authorID' => $id])
+           		->first();
+   	}
 }
 ?>

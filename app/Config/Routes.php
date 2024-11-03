@@ -9,3 +9,4 @@ $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], 'insert', 'Home::insert');
 $routes->get('listAuthors', 'Home::listAuthors');
 $routes->get('deleteAuthor/(:any)', 'Home::deleteAuthor/$1');
+$routes->get('drilldownAuthor/(:any)', 'Home::drilldownAuthor/$1');

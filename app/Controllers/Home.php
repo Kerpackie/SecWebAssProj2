@@ -11,6 +11,15 @@ class Home extends BaseController {
 			 . view('templates/footer');
 	}
 
+   	public function drilldownAuthor($id) {
+   		$model = new Author_Model();
+   		$authorData['author'] = $model->getAuthorByID($id);
+
+   		return view ('templates/header', $authorData)
+			. view ('drilldownAuthor')
+			. view ('templates/footer');
+    }
+
 	public function listAuthors() {
 		$model = new Author_Model;
         $authorData['author'] = $model->getAllAuthors();

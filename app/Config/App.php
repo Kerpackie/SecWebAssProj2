@@ -16,7 +16,7 @@ class App extends BaseConfig
      *
      * E.g., http://example.com/
      */
-    public $baseURL = 'http://localhost:80/SWAD25/CI4-MyBooks-Delete/public/';
+    public $baseURL = 'http://localhost:80/SWAD25/CI4-MyBooks-DrillDownView/public/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
