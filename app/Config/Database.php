@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'sd3MyBooks',
-        'password'     => 'pass',
-        'database'     => 'mybooks',
+        'username'     => 'root',
+        'password'     => '',
+        'database'     => 'adaredesigngallery',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

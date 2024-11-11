@@ -1,19 +1,42 @@
+<!-- app/Views/templates/header.php -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>CI4 MyBooks </title>
-	<link href="<?php echo base_url(); ?>/assets/css/style.css" rel="stylesheet" media="all" />
-	<script src="<?php echo base_url(); ?>/assets/js/common.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adare Design Gallery</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<header>
-		<img src="<?php echo base_url(); ?>/assets/images/site/TUSlogo.png" />
-		<br><br>
-		<a href="<?php echo base_url(); ?>" >Home</a>
-		<a href="<?php echo base_url(); ?>insert" >Insert</a>
-		<a href="<?php echo base_url(); ?>listAuthors" >List</a>
-		<a href="<?php echo base_url(); ?>insertCustomer" >Insert Customer</a>
-		<a href="<?php echo base_url(); ?>listCustomers" >List Customers</a>
-	</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="<?= base_url('/') ?>">Adare Design Gallery</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <?php if (session()->get('logged_in')): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/dashboard') ?>">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/orders/view') ?>">View Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/orders/edit') ?>">Edit Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/logout') ?>">Logout</a>
+                </li>
+            <?php else: ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/login') ?>">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('/register') ?>">Register</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">

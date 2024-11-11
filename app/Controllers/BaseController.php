@@ -52,7 +52,8 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
-
+        $auth = new \App\Controllers\AuthController();
+        $auth->checkRememberMe();
         // E.g.: $this->session = \Config\Services::session();
     }
 }

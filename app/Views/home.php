@@ -1,11 +1,7 @@
-<?php
-$img_base = base_url()."/assets/images/";
-?>
-
-<div class="center-text">
-	<h1> Home </h1>
-	<br><br><br><br>
-	<h2>Books Database</h2>
-	<p>Information about our Authors</a>
-	<br><br><br><br>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to My CodeIgniter App!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
 </div>

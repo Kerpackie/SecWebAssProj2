@@ -1,6 +1,7 @@
 <?php	
 
 namespace App\Controllers;
+use App\Models\Artist_Model;
 use App\Models\Author_Model;
 use App\Models\Customer_Model;
 
@@ -11,6 +12,57 @@ class Home extends BaseController {
 			 . view('home')
 			 . view('templates/footer');
 	}
+
+    public function register()
+    {
+        helper(['form']);
+        echo view('templates/header');
+        echo view('register');
+        echo view('templates/footer');
+    }
+
+    public function registerUser()
+    {
+        helper(['form']);
+        $rules = [
+            'custFirstName'   => 'required|min_length[3]|max_length[20]',
+            'custLastName'    => 'required|min_length[3]|max_length[20]',
+            'custEmail'       => 'required|valid_email',
+            'custPassword'    => 'required|min_length[6]|max_length[200]',
+            'custPhone'       => 'required',
+            'custAddressLine1'=> 'required',
+            'custCity'        => 'required',
+            'custPostalCode'  => 'required',
+            'custCountry'     => 'required',
+            'custCreditLimit' => 'required|numeric'
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new Customer_Model();
+            $data = [
+                'custFirstName'   => $this->request->getPost('custFirstName'),
+                'custLastName'    => $this->request->getPost('custLastName'),
+                'custEmail'       => $this->request->getPost('custEmail'),
+                'custPassword'    => password_hash($this->request->getPost('custPassword'), PASSWORD_DEFAULT),
+                'custPhone'       => $this->request->getPost('custPhone'),
+                'custAddressLine1'=> $this->request->getPost('custAddressLine1'),
+                'custAddressLine2'=> $this->request->getPost('custAddressLine2'),
+                'custCity'        => $this->request->getPost('custCity'),
+                'custPostalCode'  => $this->request->getPost('custPostalCode'),
+                'custCountry'     => $this->request->getPost('custCountry'),
+                'custCreditLimit' => $this->request->getPost('custCreditLimit')
+            ];
+
+
+            $model->save($data);
+            return redirect()->to('/login');
+        } else {
+            $data['validation'] = $this->validator;
+            echo view('templates/header');
+            echo view('register', $data);
+            echo view('templates/footer');
+        }
+    }
 
    	public function drilldownAuthor($id) {
    		$model = new Author_Model();
@@ -465,5 +517,8 @@ class Home extends BaseController {
 
 			}//end else - passed validation
 		}//end else - is POST
-	} //end update	
+	} //end update
+
+
+
 } //end class
