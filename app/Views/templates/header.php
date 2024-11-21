@@ -23,7 +23,7 @@
                     <a class="nav-link" href="<?= base_url('/orders/view') ?>">View Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('/orders/edit') ?>">Edit Orders</a>
+                    <a class="nav-link" href="<?= base_url('/admin/dashboard') ?>">Edit Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('/logout') ?>">Logout</a>

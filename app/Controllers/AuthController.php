@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Administrator;
 use App\Models\Customer;
+use App\Models\Customer_Model;
 use CodeIgniter\Controller;
 
 class AuthController extends BaseController
@@ -19,7 +20,7 @@ class AuthController extends BaseController
     public function loginSubmit()
     {
         $session = session();
-        $model = new Customer();
+        $model = new Customer_Model();
 
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
@@ -52,7 +53,7 @@ class AuthController extends BaseController
 
         setcookie('remember_me', $token, $expiration, "/");
 
-        $model = new Customer();
+        $model = new Customer_Model();
         $model->update($customerId, ['remember_token' => $token]);
     }
 
@@ -60,7 +61,7 @@ class AuthController extends BaseController
     {
         if (isset($_COOKIE['remember_me'])) {
             $token = $_COOKIE['remember_me'];
-            $model = new Customer();
+            $model = new Customer_Model();
             $customer = $model->where('remember_token', $token)->first();
 
             if ($customer) {
@@ -82,35 +83,44 @@ class AuthController extends BaseController
         return redirect()->to('/login');
     }
 
-    /*public function loginSubmit()
+    public function adminLogin()
+    {
+        helper(['form']);
+        echo view('templates/header');
+        echo view('auth/admin_login');
+        echo view('templates/footer');
+    }
+
+    public function adminLoginSubmit()
     {
         $session = session();
-        $model = new Administrator();
+        $adminModel = new Administrator();
 
-        $username = $this->request->getVar('username');
+        $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
-        $admin = $model->where('username', $username)->first();
+        $admin = $adminModel->where('username', $email)->first();
 
         if ($admin && password_verify($password, $admin['password'])) {
             $session->set([
-                'admin_id' => $admin['id'],
-                'admin_username' => $admin['username'],
+                'user_id' => $admin['id'],
+                'user_email' => $admin['username'],
+                'is_admin' => true,
                 'logged_in' => true,
             ]);
-            return redirect()->to('/dashboard');
-        } else {
-            $session->setFlashdata('error', 'Invalid login credentials');
-            return redirect()->to('/login');
-        }
-    }*/
 
-    // app/Controllers/AuthController.php
+            return redirect()->to('/admin/dashboard');
+        } else {
+            $session->setFlashdata('error', 'Invalid admin login credentials');
+            return redirect()->to('/adminLogin');
+        }
+    }
+
     public function addAdmin()
     {
         helper(['form']);
         echo view('templates/header');
-        echo view('add_admin');
+        echo view('auth/add_admin');
         echo view('templates/footer');
     }
 
@@ -140,7 +150,7 @@ class AuthController extends BaseController
     {
         helper(['form']);
         echo view('templates/header');
-        echo view('register');
+        echo view('auth/register');
         echo view('templates/footer');
     }
 

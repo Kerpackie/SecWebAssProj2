@@ -4,13 +4,15 @@ namespace App\Controllers;
 
 use App\Models\Product;
 use App\Models\Wishlist;
+use Config\Services;
 
 class ProductController extends BaseController
 {
     public function index()
     {
-        $model = new Product();
-        $data['products'] = $model->findAll();
+        $productModel = new Product();
+        $data['products'] = $productModel->paginate(12); // Fetch 10 products per page
+        $data['pager'] = $productModel->pager;
 
         echo view('templates/header');
         echo view('product/productList', $data);
@@ -42,7 +44,7 @@ class ProductController extends BaseController
     {
         helper(['form']);
         echo view('templates/header');
-        echo view('product/addProduct');
+        echo view('admin/products/addProduct');
         echo view('templates/footer');
     }
 
@@ -70,33 +72,70 @@ class ProductController extends BaseController
         $data['product'] = $model->find($id);
 
         echo view('templates/header');
-        echo view('product/editProduct', $data);
+        echo view('admin/products/editProduct', $data);
         echo view('templates/footer');
     }
 
-    public function update($id)
+    public function update($prodCode)
     {
-        $model = new Product();
-        $data = [
-            'prodCode' => $this->request->getPost('prodCode'),
-            'prodDescription' => $this->request->getPost('prodDescription'),
-            'prodCategory' => $this->request->getPost('prodCategory'),
-            'prodArtist' => $this->request->getPost('prodArtist'),
-            'prodQtyInStock' => $this->request->getPost('prodQtyInStock'),
-            'prodBuyCost' => $this->request->getPost('prodBuyCost'),
-            'prodSalePrice' => $this->request->getPost('prodSalePrice'),
-            'prodPhoto' => $this->request->getPost('prodPhoto'),
-            'priceAlreadyDiscounted' => $this->request->getPost('priceAlreadyDiscounted')
-        ];
-        $model->update($id, $data);
-        return redirect()->to('/products');
+        $productModel = new Product();
+        $data = $this->request->getPost();
+
+        // Handle file upload
+        $file = $this->request->getFile('prodPhoto');
+        if ($file->isValid() && !$file->hasMoved()) {
+            $fileName = $file->getRandomName();
+            $file->move(FCPATH . 'assets/images/products/full', $fileName);
+            $data['prodPhoto'] = $fileName;
+
+            // Create thumbnail
+            $image = Services::image()
+                ->withFile(FCPATH . 'assets/images/products/full/' . $fileName)
+                ->resize(150, 150, true, 'height')
+                ->save(FCPATH . 'assets/images/products/thumbs/' . $fileName);
+        } else {
+            return redirect()->back()->with('error', 'Photo upload failed.');
+        }
+
+        $productModel->update($prodCode, $data);
+        return redirect()->to(base_url('admin/products/manageProducts'))->with('success', 'Product updated successfully.');
     }
 
     public function delete($id)
     {
         $model = new Product();
         $model->delete($id);
-        return redirect()->to('/products');
+        return redirect()->to('/admin/products/manageProducts');
+    }
+
+    public function manageProducts()
+    {
+        $model = new Product();
+        $query = $this->request->getVar('query');
+
+        if ($query) {
+            $data['products'] = $model->search($query);
+            session()->setFlashdata('success', 'Search results for: ' . $query);
+        } else {
+            $data['products'] = $model->paginate(10); // Fetch 10 products per page
+            $data['pager'] = $model->pager;
+        }
+
+        $data['query'] = $query;
+
+        echo view('templates/header');
+        echo view('admin/products/manageProducts', $data);
+        echo view('templates/footer');
+    }
+
+    public function adminView($prodCode)
+    {
+        $model = new Product();
+        $data['product'] = $model->find($prodCode);
+
+        echo view('templates/header');
+        echo view('admin/products/viewProduct', $data);
+        echo view('templates/footer');
     }
 
     public function addToWishlist($prodCode)
@@ -107,6 +146,18 @@ class ProductController extends BaseController
 
         $userId = session()->get('customer_id');
         $wishlist = new Wishlist();
+
+        // Check if the product is already in the wishlist
+        $existingItem = $wishlist->where('user_id', $userId)
+            ->where('prodCode', $prodCode)
+            ->first();
+
+        if ($existingItem) {
+            // Product is already in the wishlist
+            return redirect()->to('products/viewWishlist')->with('error', 'Product is already in your wishlist.');
+        }
+
+        // Add product to the wishlist
         $data = [
             'user_id' => $userId,
             'prodCode' => $prodCode

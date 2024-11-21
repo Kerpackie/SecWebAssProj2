@@ -5,9 +5,22 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class Customer_Model extends Model {
-    protected $table = 'customers';
-    protected $allowedFields = ['custID','firstName','lastName','address','creditLimit','favGenre','image'];
-	
+    protected $table = 'customer';
+	protected $primaryKey = 'custNumber';
+
+	protected $allowedFields = ['custFirstName', 'custLastName', 'custPhone', 'custAddressLine1', 'custAddressLine2',
+		'custCity', 'custPostalCode', 'custCountry', 'custCreditLimit', 'custEmail'];
+
+	public function search($keyword) {
+		return $this->table('customer')
+			->like('custFirstName', $keyword)
+			->orLike('custLastName', $keyword)
+			->orLike('custAddressLine1', $keyword)
+			->orLike('custCreditLimit', $keyword)
+			->orLike('custNumber', $keyword)
+			->findAll();
+	}
+
 	public function getAllCustomers() {
 		return $this->findAll();
 	}

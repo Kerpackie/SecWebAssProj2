@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Order;
 use CodeIgniter\Controller;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class OrderController extends BaseController
 {
@@ -16,7 +17,9 @@ class OrderController extends BaseController
         $order = $orderModel->where('oOrderNumber', $orderId)->where('oCustomerNumber', $userId)->first();
 
         if (empty($order)) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Order not found: ' . $orderId);
+            // redirect and flash data
+            return redirect()->to('/orders/viewAllOrders')->with('error', 'Order not found: ' . $orderId);
+            //throw new PageNotFoundException('Order not found: ' . $orderId);
         }
 
         $data['order'] = $order;
@@ -32,9 +35,10 @@ class OrderController extends BaseController
         $userId = $session->get('customer_id');
 
         $orderModel = new Order();
-        $orders = $orderModel->where('oCustomerNumber', $userId)->findAll();
+        $orders = $orderModel->where('oCustomerNumber', $userId)->paginate(10); // Fetch 10 orders per page
 
         $data['orders'] = $orders;
+        $data['pager'] = $orderModel->pager;
 
         echo view('templates/header');
         echo view('order/viewAllOrders', $data);

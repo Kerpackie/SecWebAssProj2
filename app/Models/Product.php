@@ -12,5 +12,12 @@ class Product extends Model
         'prodQtyInStock', 'prodBuyCost', 'prodSalePrice', 'prodPhoto',
         'priceAlreadyDiscounted'
     ];
-    protected $useTimestamps = true;
+
+    public function search($query)
+    {
+        return $this->like('prodDescription', $query)
+            ->orLike('prodCategory', $query)
+            ->orLike('prodArtist', $query)
+            ->findAll();
+    }
 }

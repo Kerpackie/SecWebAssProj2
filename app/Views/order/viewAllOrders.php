@@ -8,7 +8,7 @@
             <tr>
                 <th>Order Number</th>
                 <th>Order Date</th>
-                <th>Total Amount</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -17,7 +17,7 @@
                 <tr>
                     <td><?= $order['oOrderNumber'] ?></td>
                     <td><?= $order['oOrderDate'] ?></td>
-                    <td>$<?= $order['oStatus'] ?></td>
+                    <td><?= $order['oStatus'] ?></td>
                     <td>
                         <a href="<?= base_url('orders/view/' . $order['oOrderNumber']) ?>" class="btn btn-primary">View</a>
                     </td>
@@ -25,5 +25,8 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <?= $pager->links('default', 'bootstrap_pagination') ?>
+        </nav>
     <?php endif; ?>
 </div>

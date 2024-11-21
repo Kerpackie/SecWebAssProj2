@@ -4,7 +4,7 @@
         <?php foreach ($products as $product): ?>
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="<?= base_url('uploads/' . $product['prodPhoto']) ?>" class="card-img-top" alt="<?= $product['prodDescription'] ?>">
+                    <img src="<?= base_url('assets/images/products/thumbs/' . $product['prodPhoto']) ?>" class="card-img-top" alt="<?= $product['prodDescription'] ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= $product['prodDescription'] ?></h5>
                         <p class="card-text">Category: <?= $product['prodCategory'] ?></p>

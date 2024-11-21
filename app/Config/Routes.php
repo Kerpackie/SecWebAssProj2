@@ -24,6 +24,38 @@ $routes->get('/login', 'AuthController::login');
 $routes->post('/auth/loginSubmit', 'AuthController::loginSubmit');
 $routes->get('/logout', 'AuthController::logout');
 
+$routes->get('/adminLogin', 'AuthController::adminLogin');
+$routes->post('/auth/adminLoginSubmit', 'AuthController::adminLoginSubmit');
+$routes->get('/auth/adminLogout', 'AuthController::adminLogout');
+
+// Admin
+$routes->get('/admin/dashboard', 'AdminController::adminDashboard');
+$routes->get('/admin/manageProducts', 'AdminController::manageProducts');
+
+// Admin - Customer
+$routes->get('/admin/customer/manageCustomers', 'AdminController::manageCustomers');
+$routes->get('/admin/customer/edit/(:any)', 'AdminController::editCustomer/$1');
+$routes->post('/admin/customer/update/(:any)', 'AdminController::updateCustomer/$1');
+$routes->get('/admin/customer/delete/(:any)', 'AdminController::deleteCustomer/$1');
+
+// Admin - Product
+
+$routes->get('/admin/products/manageProducts', 'ProductController::manageProducts');
+$routes->get('admin/products/view/(:any)', 'ProductController::adminView/$1');
+$routes->get('/admin/products/create', 'ProductController::create');
+$routes->get('/admin/products/edit/(:any)', 'ProductController::edit/$1');
+$routes->post('/admin/products/update/(:any)', 'ProductController::update/$1');
+$routes->get('/admin/products/delete/(:any)', 'ProductController::delete/$1');
+
+// Admin - Orders
+$routes->get('/admin/orders/manageOrders', 'AdminController::adminManageOrders');
+$routes->get('/admin/orders/view/(:any)', 'AdminController::adminViewOrder/$1');
+$routes->post('/admin/orders/update/(:any)', 'AdminController::adminUpdateOrder/$1');
+$routes->get('/admin/orders/edit/(:any)', 'AdminController::adminEditOrder/$1');
+
+$routes->get('/admin/manageCategories', 'AdminController::manageCategories');
+$routes->get('/admin/manageAdmins', 'AdminController::manageAdmins');
+
 $routes->get('/addAdmin', 'AuthController::addAdmin');
 $routes->post('/auth/addAdminSubmit', 'AuthController::addAdminSubmit');
 
@@ -33,11 +65,8 @@ $routes->post('/auth/registerSubmit', 'AuthController::registerSubmit');
 $routes->get('/products', 'ProductController::index');
 $routes->get('/products/search', 'ProductController::search');
 $routes->get('/products/view/(:any)', 'ProductController::view/$1');
-$routes->get('/products/create', 'ProductController::create');
+
 $routes->post('/products/store', 'ProductController::store');
-$routes->get('/products/edit/(:any)', 'ProductController::edit/$1');
-$routes->post('/products/update/(:any)', 'ProductController::update/$1');
-$routes->get('/products/delete/(:any)', 'ProductController::delete/$1');
 
 $routes->get('/products/addToWishlist/(:any)', 'ProductController::addToWishlist/$1');
 $routes->get('/products/viewWishlist', 'ProductController::viewWishlist');
@@ -46,15 +75,16 @@ $routes->get('/products/deleteFromWishlist/(:any)', 'ProductController::deleteFr
 //$routes->get('/dashboard', 'DashboardController::index');
 $routes->get('/dashboard', 'ProductController::index');
 
+// Cart
 $routes->get('cart/view', 'CartController::viewCart');
 $routes->get('cart/addToCart/(:segment)', 'CartController::addToCart/$1');
 $routes->get('cart/removeFromCart/(:segment)', 'CartController::removeFromCart/$1');
 
+// Orders
 $routes->get('orders/view', 'OrderController::viewAllOrders');
 $routes->get('orders/view/(:segment)', 'OrderController::viewOrder/$1');
-$routes->match(['get', 'post'], 'orders/update/(:segment)', 'OrderController::editOrder/$1');
-$routes->match(['get', 'post'], 'orders/edit/(:segment)', 'OrderController::editOrder/$1');
-
+$routes->post('orders/update/(:segment)', 'OrderController::updateOrder/$1');
+$routes->get('orders/edit/(:segment)', 'OrderController::editOrder/$1');
 
 
 

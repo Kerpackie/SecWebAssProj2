@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-5">
     <h2>Edit Product</h2>
-    <form action="<?= base_url('products/update/' . $product['id']) ?>" method="post">
+    <form action="<?= base_url('admin/products/update/' . $product['prodCode']) ?>" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="prodCode">Product Code</label>
             <input type="text" class="form-control" id="prodCode" name="prodCode" value="<?= $product['prodCode'] ?>" required>
@@ -20,7 +20,11 @@
         </div>
         <div class="form-group">
             <label for="prodCategory">Category</label>
-            <input type="text" class="form-control" id="prodCategory" name="prodCategory" value="<?= $product['prodCategory'] ?>">
+            <select class="form-control" id="prodCategory" name="prodCategory">
+                <option value="Category1" <?= $product['prodCategory'] == 'Category1' ? 'selected' : '' ?>>Category1</option>
+                <option value="Category2" <?= $product['prodCategory'] == 'Category2' ? 'selected' : '' ?>>Category2</option>
+                <option value="Category3" <?= $product['prodCategory'] == 'Category3' ? 'selected' : '' ?>>Category3</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="prodArtist">Artist</label>
@@ -40,7 +44,7 @@
         </div>
         <div class="form-group">
             <label for="prodPhoto">Photo</label>
-            <input type="text" class="form-control" id="prodPhoto" name="prodPhoto" value="<?= $product['prodPhoto'] ?>">
+            <input type="file" class="form-control" id="prodPhoto" name="prodPhoto" required>
         </div>
         <div class="form-group">
             <label for="priceAlreadyDiscounted">Price Already Discounted</label>
