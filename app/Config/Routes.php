@@ -19,6 +19,12 @@ $routes->match(['get', 'post'], 'updateArtist/(:num)', 'ArtistController::update
 $routes->get('deleteArtist/(:num)', 'ArtistController::deleteArtist/$1');
 
 
+// Checkout
+$routes->get('checkout', 'CheckoutController::checkout');
+$routes->get('checkout/success', 'CheckoutController::success');
+$routes->get('checkout/cancel', 'CheckoutController::cancel');
+
+
 // auth
 $routes->get('/login', 'AuthController::login');
 $routes->post('/auth/loginSubmit', 'AuthController::loginSubmit');
@@ -39,7 +45,6 @@ $routes->post('/admin/customer/update/(:any)', 'AdminController::updateCustomer/
 $routes->get('/admin/customer/delete/(:any)', 'AdminController::deleteCustomer/$1');
 
 // Admin - Product
-
 $routes->get('/admin/products/manageProducts', 'ProductController::manageProducts');
 $routes->get('admin/products/view/(:any)', 'ProductController::adminView/$1');
 $routes->get('/admin/products/create', 'ProductController::create');
@@ -79,8 +84,10 @@ $routes->get('/dashboard', 'ProductController::index');
 $routes->get('cart/view', 'CartController::viewCart');
 $routes->get('cart/addToCart/(:segment)', 'CartController::addToCart/$1');
 $routes->get('cart/removeFromCart/(:segment)', 'CartController::removeFromCart/$1');
+$routes->post('cart/updateCart', 'CartController::updateCart');
 
 // Orders
+$routes->get('orders', 'OrderController::index');
 $routes->get('orders/view', 'OrderController::viewAllOrders');
 $routes->get('orders/view/(:segment)', 'OrderController::viewOrder/$1');
 $routes->post('orders/update/(:segment)', 'OrderController::updateOrder/$1');

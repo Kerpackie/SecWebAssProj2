@@ -9,12 +9,6 @@ class Order extends Model
     protected $table = 'orders';
     protected $primaryKey = 'oOrderNumber';
     protected $allowedFields = [
-        'oOrderDate',
-        'oRequiredDate',
-        'oShippedDate',
-        'oStatus',
-        'oComments',
-        'oCustomerNumber'
+        'oOrderDate', 'oRequiredDate', 'oShippedDate', 'oStatus', 'oComments', 'oCustomerNumber'
     ];
-    protected $useTimestamps = false;
 }

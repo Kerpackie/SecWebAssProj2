@@ -44,10 +44,38 @@ class CartController extends BaseController
     public function viewCart()
     {
         $session = session();
-        $data['cart'] = $session->get('cart') ?? [];
+        $cartItems = $session->get('cart') ?? [];
+        $productModel = new Product();
+
+        foreach ($cartItems as &$item) {
+            $product = $productModel->find($item['prodCode']);
+            if ($product && isset($product['prodPhoto'])) {
+                $item['prodPhoto'] = $product['prodPhoto'];
+            } else {
+                $item['prodPhoto'] = 'noimage.jpg';
+            }
+        }
+
+        $data['cart'] = $cartItems;
 
         echo view('templates/header');
         echo view('cart/cart', $data);
         echo view('templates/footer');
+    }
+
+    public function updateCart()
+    {
+        $session = session();
+        $cart = $session->get('cart') ?? [];
+        $quantities = $this->request->getPost('quantities');
+
+        foreach ($quantities as $prodCode => $quantity) {
+            if (isset($cart[$prodCode])) {
+                $cart[$prodCode]['quantity'] = (int)$quantity;
+            }
+        }
+
+        $session->set('cart', $cart);
+        return redirect()->to('/cart/view');
     }
 }

@@ -1,10 +1,43 @@
 ﻿<div class="container mt-5">
     <h2>Order Details</h2>
-    <p><strong>Order Number:</strong> <?= esc($order['oOrderNumber']) ?></p>
-    <p><strong>Order Date:</strong> <?= esc($order['oOrderDate']) ?></p>
-    <p><strong>Required Date:</strong> <?= esc($order['oRequiredDate']) ?></p>
-    <p><strong>Shipped Date:</strong> <?= esc($order['oShippedDate']) ?></p>
-    <p><strong>Status:</strong> <?= esc($order['oStatus']) ?></p>
-    <p><strong>Customer Number:</strong> <?= esc($order['oCustomerNumber']) ?></p>
-    <a href="<?= base_url('orders/edit/' . $order['oOrderNumber']) ?>" class="btn btn-primary">Edit Order</a>
+    <table class="table">
+        <tr>
+            <th>Order ID</th>
+            <td><?= $order['oOrderNumber'] ?></td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td><?= $order['oStatus'] ?></td>
+        </tr>
+        <tr>
+            <th>Created At</th>
+            <td><?= $order['oOrderDate'] ?></td>
+        </tr>
+    </table>
+
+    <h3>Order Items</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product Code</th>
+            <th>Description</th>
+            <th>Quantity Ordered</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($orderDetails as $item): ?>
+            <tr>
+                <td><img src="<?= base_url('assets/images/products/thumbs/' . $item['prodPhoto']) ?>" alt="Product Image" width="50"></td>
+                <td><?= $item['odProductCode'] ?></td>
+                <td><?= $item['prodDescription'] ?></td>
+                <td><?= $item['odQuantityOrdered'] ?></td>
+                <td>$<?= $item['odPrice'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <a href="<?= base_url('orders/view') ?>" class="btn btn-secondary">Back to Orders</a>
 </div>
