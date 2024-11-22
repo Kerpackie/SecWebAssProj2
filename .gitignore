@@ -1,4 +1,4 @@
-﻿### CodeIgniter template
+### CodeIgniter template
 */config/development
 */logs/log-*.php
 !*/logs/index.html
@@ -26,3 +26,15 @@ application/logs/*
 *.iml
 out
 gen
+
+.env
+writeable/*
+writable/debugbar/
+
+writable/session/
+
+writable/logs/
+
+build/logs/
+
+build/.phpunit.cache/
