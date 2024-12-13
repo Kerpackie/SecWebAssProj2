@@ -14,8 +14,7 @@
         <li class="list-group-item"><a href="<?= base_url('admin/customer/manageCustomers') ?>">Manage Users</a></li>
         <li class="list-group-item"><a href="<?= base_url('admin/products/manageProducts') ?>">Manage Products</a></li>
         <li class="list-group-item"><a href="<?= base_url('admin/orders/manageOrders') ?>">Manage Orders</a></li>
-        <li class="list-group-item"><a href="<?= base_url('admin/manageCategories') ?>">Manage Categories</a></li>
-        <li class="list-group-item"><a href="<?= base_url('admin/manageAdmins') ?>">Manage Admins</a></li>
+        <li class="list-group-item"><a href="<?= base_url('addAdmin') ?>">Add Admins</a></li>
     </ul>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Administrator;
-use App\Models\Customer;
 use App\Models\Customer_Model;
 use CodeIgniter\Controller;
 
@@ -118,6 +117,8 @@ class AuthController extends BaseController
 
     public function addAdmin()
     {
+        $this->checkAdmin();
+
         helper(['form']);
         echo view('templates/header');
         echo view('auth/add_admin');
@@ -156,7 +157,7 @@ class AuthController extends BaseController
 
     public function registerSubmit()
     {
-        $model = new Customer();
+        $model = new Customer_Model();
         $data = [
             'custLastName' => $this->request->getPost('custLastName'),
             'custFirstName' => $this->request->getPost('custFirstName'),
@@ -171,5 +172,13 @@ class AuthController extends BaseController
         ];
         $model->save($data);
         return redirect()->to('/login');
+    }
+
+    private function checkAdmin(): void
+    {
+        $session = session();
+        if (!$session->get('is_admin')) {
+            redirect()->to('/adminLogin')->send();
+        }
     }
 }

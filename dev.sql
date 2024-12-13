@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `administrators` (
 -- Dumping data for table adaredesigngallery.administrators: ~1 rows (approximately)
 /*!40000 ALTER TABLE `administrators` DISABLE KEYS */;
 INSERT INTO `administrators` (`id`, `username`, `password`, `created_at`, `updated_at`) VALUES
-    (1, 'test', '$2y$10$6dKezj6mcpujYJsclZ6vSu/2PBf91P8plpA/UEtEdo2uOyTMuSWtq', '2024-11-10 17:46:55', '2024-11-10 17:46:55');
+    (1, 'test@test.ie', '$2y$10$6dKezj6mcpujYJsclZ6vSu/2PBf91P8plpA/UEtEdo2uOyTMuSWtq', '2024-11-10 17:46:55', '2024-11-10 17:46:55');
 /*!40000 ALTER TABLE `administrators` ENABLE KEYS */;
 
 -- Dumping structure for table adaredesigngallery.artist

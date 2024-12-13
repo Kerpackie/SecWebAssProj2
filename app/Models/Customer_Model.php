@@ -9,7 +9,7 @@ class Customer_Model extends Model {
 	protected $primaryKey = 'custNumber';
 
 	protected $allowedFields = ['custFirstName', 'custLastName', 'custPhone', 'custAddressLine1', 'custAddressLine2',
-		'custCity', 'custPostalCode', 'custCountry', 'custCreditLimit', 'custEmail'];
+		'custCity', 'custPostalCode', 'custCountry', 'custCreditLimit', 'custEmail', 'custPassword', 'remember_token'];
 
 	public function search($keyword) {
 		return $this->table('customer')

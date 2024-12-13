@@ -10,6 +10,23 @@ use Config\Database;
 
 class AdminController extends BaseController
 {
+    // Using the constructor to check if the user is an admin
+    // This way we can restrict access to the admin dashboard - think of it as poor mans RBAC
+    // Doesn't quite work as I'd like... would be better to use a middleware or implement something from the start
+    public function __construct()
+    {
+        helper('url');
+        $this->checkAdmin();
+    }
+
+    private function checkAdmin()
+    {
+        $session = session();
+        if (!$session->get('is_admin')) {
+            return redirect()->to('/adminLogin')->send();
+        }
+    }
+
     public function adminDashboard()
     {
         helper(['form']);
@@ -28,6 +45,8 @@ class AdminController extends BaseController
 
     public function manageCustomers()
     {
+        $this->checkAdmin();
+
         $model = new Customer_Model();
         $keyword = $this->request->getVar('keyword');
 
